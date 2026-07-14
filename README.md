@@ -1,4 +1,4 @@
-tharungowda.vercel.app
+https://tharungowda.vercel.app/
 
 
 
