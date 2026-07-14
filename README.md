@@ -1,4 +1,4 @@
-https://portfolio-bv7b.vercel.app/
+tharungowda.vercel.app
 
 
 
