@@ -225,20 +225,32 @@ function showToast(message, type = 'success') {
 
 /* ============ CONTACT FORM ============ */
 const contactForm = document.getElementById('contactForm');
-contactForm.addEventListener('submit', (e) => {
+const emailJsConfig = {
+  publicKey: 'mGYmYqLVQ1OFakfIO',
+  serviceId: 'service_9uq74ic',
+  templateId: 'template_zjts8bm',
+};
+
+emailjs.init({ publicKey: emailJsConfig.publicKey });
+
+contactForm.addEventListener('submit', async (e) => {
   e.preventDefault();
   const btn = document.getElementById('submitBtn');
   const original = btn.innerHTML;
   btn.innerHTML = '<span>Sending...</span>';
   btn.disabled = true;
 
-  // Simulate send - replace with EmailJS integration
-  setTimeout(() => {
+  try {
+    await emailjs.sendForm(emailJsConfig.serviceId, emailJsConfig.templateId, contactForm);
     showToast('Message sent successfully! I\'ll get back to you soon.', 'success');
     contactForm.reset();
+  } catch (error) {
+    console.error('EmailJS error:', error);
+    showToast('Message could not be sent. Please try again later.', 'error');
+  } finally {
     btn.innerHTML = original;
     btn.disabled = false;
-  }, 1500);
+  }
 });
 
 /* ============ MAGNETIC BUTTONS ============ */
@@ -264,13 +276,3 @@ gsap.from('.hero-description', { opacity: 0, y: 30, duration: 1, delay: 1.6 });
 gsap.from('.hero-buttons', { opacity: 0, y: 30, duration: 1, delay: 1.8 });
 gsap.from('.hero-image-container', { opacity: 0, scale: 0.8, duration: 1.2, delay: 1, ease: 'back.out(1.7)' });
 gsap.from('.floating-badge', { opacity: 0, scale: 0, duration: 0.8, delay: 1.8, stagger: 0.15, ease: 'back.out(1.7)' });
-
-/* ============ EMAILJS INIT (optional) ============ */
-// Uncomment and add your EmailJS keys to enable real email sending
-// emailjs.init("YOUR_PUBLIC_KEY");
-// contactForm.addEventListener('submit', (e) => {
-//   e.preventDefault();
-//   emailjs.sendForm('YOUR_SERVICE_ID', 'YOUR_TEMPLATE_ID', contactForm)
-//     .then(() => showToast('Message sent!', 'success'))
-//     .catch(() => showToast('Failed to send', 'error'));
-// });
