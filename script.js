@@ -228,7 +228,7 @@ const contactForm = document.getElementById('contactForm');
 const emailJsConfig = {
   publicKey: 'mGYmYqLVQ1OFakfIO',
   serviceId: 'service_9uq74ic',
-  templateId: 'template_zjts8bm',
+  templateId: 'template_vxtoosh',
 };
 
 emailjs.init({ publicKey: emailJsConfig.publicKey });
